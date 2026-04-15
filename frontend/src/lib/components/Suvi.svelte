@@ -1,17 +1,18 @@
 <script lang="ts">
 	import { env } from '$env/dynamic/public';
-    import { onMount, tick } from "svelte";
+    import { onMount } from "svelte";
 	import { writable } from 'svelte/store';
     import { fade } from 'svelte/transition';
+    import { browser } from '$app/environment';
     const count = writable(0);
-    const apiUrl = env.PUBLIC_API_URL;
+    const apiUrl = browser ? env.PUBLIC_API_URL_BROWSER : env.PUBLIC_API_URL;
 
     interface Suvi {
         value: number;
     }
 
     interface UpdateResponse {
-        success: boolean;
+        value: number;
     }
 
     function updateSuvi(): Promise<Suvi> {
@@ -24,57 +25,34 @@
         });
     }
 
-    function incrementSuvi(): Promise<boolean> {
+    function incrementSuvi(): Promise<number> {
         return fetch(apiUrl + "/api/suvi", { method: 'POST' })
         .then(res => res.json())
         .then(res => {
-            return (res as UpdateResponse).success
+            return (res as UpdateResponse).value
         })
     }
 
     async function buttonHandler() {
-        await incrementSuvi();
-        await updateSuvi();
+        const updated = await incrementSuvi();
+        count.set(updated)
     }
 
-    onMount(async () => {
-        await updateSuvi();
-    })
+    onMount(() => {
+        updateSuvi();
 
-    setInterval(updateSuvi, 10000);
+        const interval = setInterval(updateSuvi, 10000);
+        return () => clearInterval(interval);
+    })
     
 </script>
 
 <style>
-    .titlebox {
-        padding: 20px;
-        width: 25em;
-    }
-    .suvi {
-        font-family: monospace; 
-        font-size: 3vh;
-        color: darkslategray;
-        margin: 0px;
-    }
-    .button {
-        background-color: white; 
-        border-radius: 1vh; 
-        border: 3px solid darkslategray;
-        margin: 0px;
-    }
-    .button:hover {
-        background-color:darkcyan;
-        transition-duration: 0.25s;
-    }
-    .button:active {
-        background-color: cadetblue;
-        transition-duration: 0ms;
-    }
-
+    @import "../../styles.css"
 </style>
 
 <div class="titlebox">
-    <p class="suvi"><span style="color:olivedrab">// suviplusplus.fi</span><br /><span style="color:royalblue">int</span> <span style="color:darkgoldenrod">suvi</span> <span style="color:darkslategray">=</span> {#key $count}<span style="color:darkcyan" in:fade>{$count}</span>{/key}<span style="color:darkslategray">;</span></p>
+    <p class="suvi"><span style="color:olivedrab">// suvi.cc</span><br />
+    <span style="color:royalblue">int</span> <span style="color:darkgoldenrod">suvi</span> <span style="color:darkslategray">=</span> {#key $count}<span style="color:darkcyan" in:fade>{$count}</span>{/key}<span style="color:darkslategray">;</span></p>
     <button class="suvi button" on:click={()=>buttonHandler()}><span style="color:darkgoldenrod">suvi</span><span style="color:darkslategray">++;</span></button>
-    <p></p>
 </div>

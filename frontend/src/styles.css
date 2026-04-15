@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:global(body) {
+    font-family: "IBM Plex Mono", monospace;
+}
+
+:global(p) {
+    font-weight: 400;
+    font-style: normal;
+    font-size: x-large;
+}
+
+:global(h2) {
+    font-size: xx-large;
+    font-weight: bold;
+    color: royalblue;
+}
+
+:global(h3) {
+    font-size: x-large;
+    font-weight: 300;
+}
+
+:global(small) {
+    font-weight: 300;
+    font-size: small;
+}
+
+textarea {
+		width: 100%;
+        box-sizing: border-box;
+        resize: none;
+        overflow: hidden;
+}
+
+
+
+/* blog */
+.blogpost {
+    margin: 12px;
+    padding: 20px;
+    width: fit-content;
+    border-radius: 1vh; 
+    border: 3px solid darkslategray;
+}
+.comment {
+    padding: 5px;
+    scale: 70%;
+}
+
+/* the title box (suvi incrementer widget) */
+.titlebox {
+        padding: 20px;
+        width: 25em;
+    }
+.suvi {
+    font-family: "IBM Plex Mono", monospace; 
+    font-size: 3vh;
+    color: darkslategray;
+    margin: 0px;
+}
+.button {
+    background-color: white; 
+    border-radius: 1vh; 
+    border: 3px solid darkslategray;
+    margin: 0px;
+}
+.button:hover {
+    background-color:darkcyan;
+    transition-duration: 0.25s;
+}
+.button:active {
+    background-color: cadetblue;
+    transition-duration: 0ms;
+}

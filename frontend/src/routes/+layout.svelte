@@ -1,5 +1,6 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
+    import Suvi from '$lib/components/Suvi.svelte';
 
 	let { children } = $props();
 </script>
@@ -8,4 +9,9 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
+<style>
+	@import '../styles.css';
+</style>
+
+<Suvi />
 {@render children?.()}
