@@ -6,6 +6,8 @@ use tower_http::cors::{CorsLayer, Any};
 use std::{net::{SocketAddr}, str::FromStr, time::Duration};
 use bson::{DateTime, oid::ObjectId};
 
+use tokio::signal;
+
 mod db;
 mod structs;
 
@@ -138,6 +140,18 @@ fn password_check(
     std::env::var("PASSWORD").unwrap_or(String::from("")) == password
 }
 
+async fn shutdown_signal() {
+    let ctrl_c = async { signal::ctrl_c().await.unwrap() };
+    let terminate = async {
+        signal::unix::signal(signal::unix::SignalKind::terminate())
+            .unwrap().recv().await
+    };
+    tokio::select! {
+        _ = ctrl_c => {},
+        _ = terminate => {},
+    }
+}
+
 #[tokio::main]
 async fn main() {
 
@@ -166,6 +180,7 @@ async fn main() {
     // run our app with hyper, listening globally on port 3000
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
     axum::serve(listener, app.into_make_service_with_connect_info::<SocketAddr>())
+        .with_graceful_shutdown(shutdown_signal())
         .await
         .unwrap();
 }
