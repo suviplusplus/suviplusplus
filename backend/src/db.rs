@@ -1,4 +1,4 @@
-use mongodb::{Client, Collection, Database, bson::doc, options::{FindOneAndUpdateOptions, ReturnDocument, UpdateOptions}, results::UpdateResult};
+use mongodb::{Client, Collection, Database, bson::doc, options::{FindOneAndUpdateOptions, ReturnDocument}, results::UpdateResult};
 use bson::{Document, oid::ObjectId, to_bson};
 use std::sync::Arc;
 use futures::{TryStreamExt};
