@@ -1,6 +1,8 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
     import Suvi from '$lib/components/Suvi.svelte';
+	import NavButton from '$lib/components/NavButton.svelte';
+	import { resolve } from '$app/paths';
 
 	let { children } = $props();
 </script>
@@ -14,4 +16,10 @@
 </style>
 
 <Suvi />
+
+<nav>
+	<NavButton dest="/" />
+	-
+	<NavButton dest="/blog" />
+</nav>
 {@render children?.()}

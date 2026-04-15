@@ -33,6 +33,15 @@ textarea {
         overflow: hidden;
 }
 
+nav {
+    width: fit-content;
+    margin-inline: 24px;
+    border-radius: 1vh;
+    background-color: lightblue;
+    padding: 1vh;
+    font-size: larger;
+}
+
 
 
 /* blog */
