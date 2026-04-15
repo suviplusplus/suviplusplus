@@ -7,15 +7,9 @@
     let { body, author, date }: Comment = $props();
 </script>
 
-<style>
-
-    @import '../../styles.css';
-
-</style>
-
 <div class="comment">
-    <h3>{author} said:</h3>
-    <p>{body}</p>
+    <span style="font-weight:300; color:darkslategray;">{author} said:</span><br />
+    {body}<br />
     <small>{date.toLocaleString('en-US', {
         year: 'numeric',
         month: 'short',

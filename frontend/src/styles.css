@@ -26,59 +26,69 @@
     font-size: small;
 }
 
-textarea {
+:global(textarea) {
 		width: 100%;
         box-sizing: border-box;
         resize: none;
         overflow: hidden;
+        border-radius: 0.5vh;
 }
 
-nav {
+:global(nav) {
     width: fit-content;
     margin-inline: 24px;
     border-radius: 1vh;
     background-color: lightblue;
     padding: 1vh;
+}
+
+:global(.navbutton) {
     font-size: larger;
+    padding: 0.3vh;
 }
 
 
 
 /* blog */
-.blogpost {
+:global(.blogpost) {
     margin: 12px;
     padding: 20px;
     width: fit-content;
     border-radius: 1vh; 
     border: 3px solid darkslategray;
 }
-.comment {
-    padding: 5px;
-    scale: 70%;
+:global(.comment) {
+    padding: 12px;
+    font-size: medium;
+}
+:global(.commentbox) {
+    padding: 1vh;
+    border-radius: 1vh;
+    border: 3px solid darkslategray;
 }
 
 /* the title box (suvi incrementer widget) */
-.titlebox {
+:global(.titlebox) {
         padding: 20px;
         width: 25em;
     }
-.suvi {
+:global(.suvi) {
     font-family: "IBM Plex Mono", monospace; 
     font-size: 3vh;
     color: darkslategray;
     margin: 0px;
 }
-.button {
+:global(button) {
     background-color: white; 
     border-radius: 1vh; 
     border: 3px solid darkslategray;
     margin: 0px;
 }
-.button:hover {
+:global(button:hover) {
     background-color:darkcyan;
     transition-duration: 0.25s;
 }
-.button:active {
+:global(button:active) {
     background-color: cadetblue;
     transition-duration: 0ms;
 }

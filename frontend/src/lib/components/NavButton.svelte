@@ -8,4 +8,4 @@
     }
 </script>
 
-<button class="navbutton" onclick={() => onClick()}>goto {dest};</button>
+<button class="navbutton" onclick={() => onClick()}><span style="color:purple">goto</span> <span style="color:darkgoldenrod">{dest}</span><span style="color:darkslategray">;</span></button>

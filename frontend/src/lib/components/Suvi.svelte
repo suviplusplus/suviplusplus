@@ -47,10 +47,6 @@
     
 </script>
 
-<style>
-    @import "../../styles.css"
-</style>
-
 <div class="titlebox">
     <p class="suvi"><span style="color:olivedrab">// suvi.cc</span><br />
     <span style="color:royalblue">int</span> <span style="color:darkgoldenrod">suvi</span> <span style="color:darkslategray">=</span> {#key $count}<span style="color:darkcyan" in:fade>{$count}</span>{/key}<span style="color:darkslategray">;</span></p>

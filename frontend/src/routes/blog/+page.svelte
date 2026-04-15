@@ -62,6 +62,12 @@
         fetched.sort((a, b) => {
             return b.date.getTime() - a.date.getTime();
         });
+        fetched.forEach((post) => {
+            post.comments.sort((a, b) => {
+                return a.date.getTime() - b.date.getTime();
+            })
+        })
+
         posts.set(fetched);
     })
 </script>

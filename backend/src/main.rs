@@ -116,21 +116,25 @@ async fn add_comment_handler(
     Extension(db): Extension<SuviDB>,
     Json(payload): Json<NewComment>,
 ) -> impl IntoResponse {
-    let comment = Comment {
-        id: Some(ObjectId::new()),
-        author: payload.author,
-        body: payload.body,
-        date: DateTime::now(),
-        ip: ip.ip().to_string(),
-    };
-    
-    if let Some(oid) = ObjectId::from_str(&id).ok() {
-        match db.add_comment(oid, comment).await {
-            Ok(_) => (StatusCode::CREATED, Json(json!({ "id": id }))).into_response(),
-            Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response()
-        }
+    if payload.body == "" {
+        (StatusCode::BAD_REQUEST, "invalid request").into_response()
     } else {
-        (StatusCode::BAD_REQUEST, "invalid object id").into_response()
+        let comment = Comment {
+                id: Some(ObjectId::new()),
+                author: if payload.author == "" { "anonymous".to_string() } else { payload.author },
+                body: payload.body,
+                date: DateTime::now(),
+                ip: ip.ip().to_string(),
+            };
+            
+            if let Some(oid) = ObjectId::from_str(&id).ok() {
+                match db.add_comment(oid, comment).await {
+                    Ok(_) => (StatusCode::CREATED, Json(json!({ "id": id }))).into_response(),
+                    Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response()
+                }
+            } else {
+                (StatusCode::BAD_REQUEST, "invalid object id").into_response()
+            }
     }
 }
 
